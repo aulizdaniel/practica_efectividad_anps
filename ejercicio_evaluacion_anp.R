@@ -26,19 +26,20 @@ library(landscapemetrics)#Composicion y configuracion
 
 
 #imagen satelital para 2015
-tux_2015 <- rast("los_tuxtlas_satel_25k_2015.tif")
+tux_2015 <- rast("spatial/los_tuxtlas_satel_25k_2015.tif")
 tux_2015
 #puntos de referencia de las clases de cobertura del suelo
-points_2015 <- read_sf("points_land_cover_2015.shp")
+points_2015 <- read_sf("spatial/points_land_cover_2015.shp")
 points_2015
 #Polígono de la reserva de la biosfera Los tuxtlas
-pol_tux <- read_sf("E:/garbage/res/los_tuxtlas.shp")
+pol_tux <- read_sf("spatial/LosTuxtlas1998.shp") %>% 
+  st_transform(st_crs(points_2015))
 
 
 #defino las clases de cobertura como factores
 points_2015$class <- factor(points_2015$class)
 
-
+table(points_2015$class)
 ##############################################################################################################################
 ##Primero vamos a hacer la clasificación de las imágenes de satélite
 
@@ -167,9 +168,9 @@ ggplot(datos_firmas_2015, aes(x = banda_4, y = banda_3, color = clase)) +
 #repito los pasos pero ahora para el año 2025
 
 #imagen de satélite
-tux_2025 <- rast("los_tuxtlas_satel_25k_2025.tif")
+tux_2025 <- rast("spatial/los_tuxtlas_satel_25k_2025.tif")
 
-points_2025 <- read_sf("points_land_cover_2025.shp")
+points_2025 <- read_sf("spatial/points_land_cover_2025.shp")
 
 
 
@@ -305,7 +306,7 @@ ggR(perdida_bosque, geom_raster = T, forceCat = T) +
 #Ahora vamos a separar lo que pasa adentro y lo que pasa afuera
 
 #cargamos el polígono del buffer alrededor de la reserva
-buff_tux <- read_sf("C:/Users/dauli/OneDrive/Documentos/curso/clase_iztacala/spat/buffer_los_tuxtlas.shp")
+buff_tux <- read_sf("spatial/buffer_los_tuxtlas.shp")
 
 
 #Recortamos la capa de pérdida de bosque dentro de la reserva
@@ -447,13 +448,13 @@ p_regular %>% plot
 #### vamos a extraer información de algunas variables que pueden ser importantes
 
 #cargo variables
-slope_tux <- rast("slope_tuxtlas.tif")
+slope_tux <- rast("spatial/slope_tuxtlas.tif")
 
-road_tux <- rast("road_dis_tuxtlas.tif")
+road_tux <- rast("spatial/road_dis_tuxtlas.tif")
 
-elev_tux <- rast("elevation_tuxtlas.tif")
+elev_tux <- rast("spatial/elevation_tuxtlas.tif")
 
-citi_tux <- rast("cities_dis_tuxtlas.tif")
+citi_tux <- rast("spatial/cities_dis_tuxtlas.tif")
 
 
 #extraigo la información
