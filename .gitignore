@@ -1,0 +1,10 @@
+
+/spatial/resultados/
+
+*.tif
+*.tiff
+
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
