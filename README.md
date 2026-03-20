@@ -1,1 +1,1 @@
-Este repositorio contiene información para llevar a cabo una práctica para estimar la efectividad de un Área Natural Protegida (ANP) para peevenir la deforestación
+Este repositorio contiene información para llevar a cabo una práctica para estimar la efectividad de un **Área Natural Protegida (ANP)** para prevenir la deforestación 
