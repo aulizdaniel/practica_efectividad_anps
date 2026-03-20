@@ -8,7 +8,7 @@
 
 #Dra Aline Pingarroni
 # FES Iztacala, UNAM
-
+#a_pingarroni@iztacala.unam.mx 
 
 
 # Paquetes necesarios -----------------------------------------------------

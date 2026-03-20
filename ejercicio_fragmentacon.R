@@ -1,40 +1,41 @@
 
-
-
 #Script para hacer la evaluación de un ANP
 #El script proporciona un flujo de trabajo para determinar si un ANP puede 
 #servir para reducir la fragemntación o no
 
+
 #Autor: Dr. Daniel Auliz-Ortiz
 #Laboratorio de Geografía de la biodiversidad, Instituto de Biología
 #contacto: dauliz@cieco.unam.mx
+
+#Dra Aline Pingarroni
+# FES Iztacala, UNAM
+#a_pingarroni@iztacala.unam.mx 
 
 
 #Paquetes necesarios
 
 #recuerda que puedes instalar el paquete que no tengas usando install.packages()
 
-library(tidyverse)
-library(sf)
-library(terra)
-library(margins)
-library(landscapemetrics)
-library(exactextractr)
+library(tidyverse)#manipulaDatos
+library(sf)#Datos tipo shape
+library(terra)#Raster
+library(margins)#Efectos marginales
+library(landscapemetrics)#Composicion y configuracion
+library(exactextractr)#resumen de variables raster
 
 
+#leer archivo raster de resultados
 
-#define tu directorio de trabajo
-setwd("E:/iztacala_ejercicio/spatial")
-
-bosque <- rast("resultados/los_tux_bosque_2025.tif")
-
+bosque <- rast("spatial/resultados/los_tux_bosque_2025.tif")
 
 
 #Polígono de la reserva de la biosfera Los tuxtlas
-pol_tux <- read_sf("E:/garbage/res/los_tuxtlas.shp")
+pol_tux <-read_sf("spatial/LosTuxtlas1998.shp") %>% 
+  st_transform(st_crs(bosque))
 
 #cargamos el polígono del buffer alrededor de la reserva
-buff_tux <- read_sf("C:/Users/dauli/OneDrive/Documentos/curso/clase_iztacala/spat/buffer_los_tuxtlas.shp")
+buff_tux <- read_sf("spatial/buffer_los_tuxtlas.shp")
 
 
 
@@ -188,13 +189,13 @@ buff_all
 
 
 #cargo variables
-slope_tux <- rast("slope_tuxtlas.tif") #pendiente
+slope_tux <- rast("spatial/slope_tuxtlas.tif") #pendiente
 
-road_tux <- rast("road_dis_tuxtlas.tif")  #distancia a carreteras
+road_tux <- rast("spatial/road_dis_tuxtlas.tif")  #distancia a carreteras
 
-elev_tux <- rast("elevation_tuxtlas.tif") #altitud
+elev_tux <- rast("spatial/elevation_tuxtlas.tif") #altitud
 
-citi_tux <- rast("cities_dis_tuxtlas.tif") #distancia a ciudades
+citi_tux <- rast("spatial/cities_dis_tuxtlas.tif") #distancia a ciudades
 
 
 #ahora vamos acrear una función que haga uso de la función exact_extract para calcular promedios de un raster en una zona
